@@ -10,23 +10,55 @@
       /* local DOM styles go here */
       :host {
         display: inline-block;
+        -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
       }
     </style>
 
     <!-- local DOM goes here -->
+    <iron-icon id="add" icon="add-circle-outline"></iron-icon>
+    {{value}}
+    <iron-icon id="minus" icon="remove-circle-outline"></iron-icon>
   </template>
 
   <script>
   Polymer({
     is: 'number-selector',
-    properties: {
 
+    properties: {
+      minimum: {
+        type: Number,
+        value: NaN
+      },
+
+      maximum: {
+        type: Number,
+        value: NaN
+      },
+
+      value: {
+        type: Number,
+        value: 0
+      }
     },
+
+    // add listeners object with tap: 'toggle'
+   listeners: {
+        'add.tap': 'increment',
+        'minus.tap': 'decrement'
+    },
+
     increment: function() {
-        return 
+      if(isNaN(this.maximum) || this.value < this.maximum)
+      this.value++;
     },
     decrement: function() {
-
+      if(isNaN(this.minimum) || this.value > this.minimum)
+      this.value--;
     }
   });
   </script>
